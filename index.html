@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8" />
+  <title>Johny Balint – DevOps / Platform Engineer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --card: #020617;
+      --border: #1f2937;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.1);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .shell {
+      max-width: 1120px;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+      border-radius: 32px;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(15,23,42,0.8);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+    }
+
+    header {
+      padding: 20px 28px;
+      border-bottom: 1px solid rgba(148,163,184,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 0 0 4px rgba(15,23,42,1);
+      font-size: 14px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-role {
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .header-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.35);
+      color: var(--muted);
+      background: rgba(15,23,42,0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .pill-accent {
+      border-color: rgba(56,189,248,0.7);
+      background: var(--accent-soft);
+      color: #e0f2fe;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(56,189,248,0.8);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+      padding: 18px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, rgba(30,64,175,0.18), rgba(15,23,42,0.96));
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel.right {
+      background: radial-gradient(circle at top right, rgba(8,47,73,0.3), rgba(15,23,42,0.98));
+    }
+
+    .panel-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-label span.tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f9fafb;
+      margin-top: 2px;
+    }
+
+    .panel-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 95%;
+    }
+
+    .list {
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .list-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.35);
+      color: var(--muted);
+      background: rgba(15,23,42,0.9);
+      white-space: nowrap;
+    }
+
+    .badge-strong {
+      border-color: rgba(56,189,248,0.8);
+      color: #e0f2fe;
+      background: rgba(15,23,42,0.9);
+    }
+
+    .timeline {
+      margin: 4px 0 0;
+      padding: 0;
+      list-style: none;
+      border-left: 1px solid rgba(75,85,99,0.7);
+      margin-left: 4px;
+    }
+
+    .timeline-item {
+      padding-left: 12px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 6px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(56,189,248,0.9);
+    }
+
+    .timeline-title {
+      font-size: 13px;
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .timeline-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .timeline-desc {
+      font-size: 12px;
+      color: #cbd5f5;
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: auto;
+      border-top: 1px dashed rgba(55,65,81,0.8);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .service-id {
+      font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      color: rgba(148,163,184,0.8);
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.95);
+    }
+
+    .micro-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(148,163,184,0.9);
+    }
+
+    .pill-danger {
+      border-color: rgba(248,113,113,0.7);
+      background: rgba(127,29,29,0.35);
+      color: #fecaca;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <div class="brand-avatar">JB</div>
+        <div class="brand-text">
+          <div class="brand-name">Johny&nbsp;Balint</div>
+          <div class="brand-role">DevOps / Platform Engineer · Kubernetes · GitOps</div>
+        </div>
+      </div>
+      <div class="header-badges">
+        <div class="pill pill-accent">
+          <span class="pill-dot"></span>
+          Live CV Preview
+        </div>
+        <div class="pill">HTML+CSS only</div>
+        <div class="pill">Future: microservices on k8s</div>
+      </div>
+    </header>
+
+    <main>
+      <!-- SERVICE A – PERSONAL PROFILE -->
+      <section class="panel left">
+        <div class="panel-label">
+          <span class="micro-label">Service A</span>
+          <span class="tag">personal-profile</span>
+        </div>
+        <div class="panel-title">Osobný profil</div>
+        <div class="panel-subtitle">
+          DevOps / platform inžinier, ktorý rád skladá GitOps skladačky: GitHub / GitLab, CI/CD, Docker, Helm, ArgoCD, Kubernetes.
+          Popri tom rodina, bicykel a občasné plánovanie vlastných projektov (napr. drony).
+        </div>
+
+        <ul class="list">
+          <li>
+            <span class="list-label">Zhrnutie</span>
+            <span>
+              Dlhoročná prax v IT (Linux, automatizácia, CI/CD). Silný fokus na infra ako kód, Kubernetes, GitOps prístup
+              a kvalitný pipeline od commitu až po produkciu. Rád rozkladám komplexné veci na jednoduché a opakovateľné kroky.
+            </span>
+          </li>
+          <li>
+            <span class="list-label">Kto som</span>
+            <span>
+              • IT / DevOps človek, ktorý pracuje s Jenkinsom, GitLab CI, GitHub Actions, Mavenom, Trivy, Dockerom a K8s<br>
+              • Otec dvoch detí, pre ktorého je dôležitý balans medzi prácou a rodinou<br>
+              • Biker, ktorý rád sedne na bicykel a popritom sa snaží držať formu
+            </span>
+          </li>
+          <li>
+            <span class="list-label">Silné stránky</span>
+            <span>
+              <div class="badge-row">
+                <span class="badge badge-strong">Kubernetes & GitOps mindset</span>
+                <span class="badge badge-strong">CI/CD dizajn a údržba</span>
+                <span class="badge">Linux / WSL / shell skripty</span>
+                <span class="badge">Automatizácia a scripting</span>
+                <span class="badge">Praktický prístup, nie PowerPoint</span>
+              </div>
+            </span>
+          </li>
+          <li>
+            <span class="list-label">Záujmy</span>
+            <span>
+              • DevOps, infra a nástroje (K8s, ArgoCD, Helm, monitoring)<br>
+              • Dlhodobo – myšlienka IT firmy okolo dronov a súvisiacich systémov<br>
+              • Technológie okolo bezpečnosti, sietí a observability
+            </span>
+          </li>
+        </ul>
+
+        <div class="footer-note">
+          <span>Táto časť bude neskôr vlastný microservice (napr. <code>profile-service</code>).</span>
+          <span class="service-id">svc-a: personal-profile</span>
+        </div>
+      </section>
+
+      <!-- SERVICE B – TECH / DEVOPS PROFILE -->
+      <section class="panel right">
+        <div class="panel-label">
+          <span class="micro-label">Service B</span>
+          <span class="tag">tech-profile</span>
+        </div>
+        <div class="panel-title">Technický / DevOps profil</div>
+        <div class="panel-subtitle">
+          Zameranie na Kubernetes, CI/CD, kontajnery a automatizáciu. Cieľom je mať čistý a predvídateľný deployment flow:
+          HTML → Docker → Helm → ArgoCD → Kubernetes.
+        </div>
+
+        <ul class="list">
+          <li>
+            <span class="list-label">Stack</span>
+            <span>
+              <div class="badge-row">
+                <span class="badge badge-strong">Kubernetes</span>
+                <span class="badge badge-strong">Docker / OCI kontajnery</span>
+                <span class="badge badge-strong">Helm</span>
+                <span class="badge badge-strong">ArgoCD (GitOps)</span>
+                <span class="badge">GitLab CI</span>
+                <span class="badge">GitHub Actions</span>
+                <span class="badge">Jenkins, Maven, Trivy</span>
+                <span class="badge">Linux, WSL, shell</span>
+              </div>
+            </span>
+          </li>
+          <li>
+            <span class="list-label">GitOps flow</span>
+            <span>
+              HTML/CSS app v repozitári <code>web-page</code> → build Docker image (GitHub Actions) →
+              push do GHCR → Helm chart v repozitári <code>web-page-gitops</code> →
+              ArgoCD sleduje GitOps repo a synchronizuje stav do Kubernetes clustra.
+            </span>
+          </li>
+          <li>
+            <span class="list-label">K8s / infra</span>
+            <span>
+              <ul class="timeline">
+                <li class="timeline-item">
+                  <div class="timeline-title">Kubernetes základ</div>
+                  <div class="timeline-meta">Pody, Services, Ingress, Storage (PV/PVC/StorageClass)</div>
+                  <div class="timeline-desc">
+                    Práca s manifestami, pochopenie sieťovej cesty (Pod → Service → Ingress → MetalLB) a
+                    oddelenie infra vrstiev (CNI, Ingress, LB).
+                  </div>
+                </li>
+                <li class="timeline-item">
+                  <div class="timeline-title">CI/CD pipelines</div>
+                  <div class="timeline-meta">Jenkins, GitLab CI, GitHub Actions</div>
+                  <div class="timeline-desc">
+                    Buildy, testy, Docker image, security scanning (Trivy), nasadzovanie do K8s,
+                    väzba na Helm/ArgoCD.
+                  </div>
+                </li>
+                <li class="timeline-item">
+                  <div class="timeline-title">GitOps s ArgoCD</div>
+                  <div class="timeline-meta">Application, sync, diff, auto-heal</div>
+                  <div class="timeline-desc">
+                    Git ako zdroj pravdy pre manifesty. ArgoCD sleduje Git repo,
+                    porovnáva želaný stav s realitou a synchronizuje zmeny.
+                  </div>
+                </li>
+              </ul>
+            </span>
+          </li>
+          <li>
+            <span class="list-label">Ďalší rozvoj</span>
+            <span>
+              • Rozdelenie tejto stránky na dva samostatné mikroservisy (Service A/B) nasadené ako dve K8s deploymenty<br>
+              • Pridanie Ingress, TLS, možno vlastnej domény<br>
+              • Postupné doplnenie backend častí (napr. timeline, projekty, kontaktný formulár)
+            </span>
+          </li>
+        </ul>
+
+        <div class="footer-note">
+          <span>Táto časť bude neskôr druhý microservice (napr. <code>tech-profile-service</code>).</span>
+          <span class="service-id">svc-b: tech-profile</span>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
