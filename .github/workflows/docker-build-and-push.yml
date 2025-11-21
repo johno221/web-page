@@ -69,6 +69,8 @@ jobs:
 
       - name: Commit and push changes
         working-directory: web-page-gitops
+        env:
+          GITOPS_PAT: ${{ secrets.GITOPS_PAT }}
         run: |
           git config user.name "web-page-ci"
           git config user.email "ci@users.noreply.github.com"
@@ -80,4 +82,7 @@ jobs:
 
           git add web-page-chart/values.yaml
           git commit -m "Update web-page image tag to ${{ needs.build-and-push.outputs.image_tag }}"
-          git push
+
+          # TU je fix – nastavíme remote tak, aby používal PAT
+          git remote set-url origin https://x-access-token:${GITOPS_PAT}@github.com/johno221/web-page-gitops.git
+          git push origin main
